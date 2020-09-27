@@ -116,3 +116,19 @@ docker container run -p 443:8443 \
   briansworth/nginx_rproxy:alpine
 ```
 
+## Docker Compose
+
+The included `docker-compose.yml` is an example of using this Docker image.
+It leverages a Jekyll demo container that will be used as the `PROXY_UPSTREAM`.
+
+### Example
+
+```bash
+# The jekyll container takes a while (~1 min) to come up fully
+docker-compose up
+```
+
+Navigate to `http://localhost` to verify.
+It will by default redirect http -> https. 
+Additionally, it will generate a self-signed certificate, 
+so the browser will warn about the risk of going to this website.

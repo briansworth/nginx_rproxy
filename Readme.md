@@ -47,14 +47,12 @@ To use a custom DNS server, use the `DNS_RESOLVER` environment variable
 
 
 ## Docker pull
-----
 
 ```bash
-docker image pull briansworth/nginx_rproxy:alpine_3.12
+docker image pull briansworth/nginx_rproxy:alpine
 ```
 
 ## Examples
-----
 
 Simple example using a custom DNS resolver, 
 and exposing 80 and 443 on the host to the default container ports.
@@ -63,7 +61,7 @@ and exposing 80 and 443 on the host to the default container ports.
 docker container run -p 80:8080 \
   -p 443:8443 \
   -e DNS_RESOLVER=8.8.4.4 \
-  briansworth/nginx_rproxy:latest
+  briansworth/nginx_rproxy:alpine
 ```
 
 *NOTE: This will require generation of Diffie Hellman parameters which nginx will use for security purposes.*
@@ -79,7 +77,7 @@ Avoids having to generate when starting the container (which is very slow).
 docker container run -p 443:8443 \
   -v /etc/ssl/certs/dhparam.pem:/etc/ssl/certs/dhparam.pem \
   -e DNS_RESOLVER=8.8.4.4 \
-  briansworth/nginx_rproxy:latest
+  briansworth/nginx_rproxy:alpine
 ```
 
 Example to set where the proxy will point to (`PROXY_UPSTREAM`).
@@ -89,10 +87,10 @@ docker container run -p 443:8443 \
   -v /etc/ssl/certs/dhparam.pem:/etc/ssl/certs/dhparam.pem \
   -e PROXY_UPSTREAM=web_container:8443 \
   -e SITE_NAME=mysite.local \
-  briansworth/nginx_rproxy:latest
+  briansworth/nginx_rproxy:alpine
 ```
 
-Example to customize the upstream protocol (`$PROXY_PROTO`).
+Example to customize the upstream protocol (`PROXY_PROTO`).
 
 ```bash
 docker container run -p 443:8443 \
@@ -100,7 +98,7 @@ docker container run -p 443:8443 \
   -e PROXY_PROTO=https \
   -e PROXY_UPSTREAM=www.codeandkeep.com \
   -e DNS_RESOLVER=1.1.1.1 \
-  briansworth/nginx_rproxy:latest
+  briansworth/nginx_rproxy:alpine
 ```
 
 Example of mounting the certificate / key from the host to the container.
@@ -115,6 +113,6 @@ docker container run -p 443:8443 \
   -e DNS_RESOLVER=1.1.1.1 \
   -e PROXY_PROTO=https \
   -e PROXY_UPSTREAM=codeandkeep.com \
-  briansworth/nginx_rproxy:latest
+  briansworth/nginx_rproxy:alpine
 ```
 
